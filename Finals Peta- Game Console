@@ -1,0 +1,71 @@
+# Player and Enemy Stats
+player_hp = 50
+enemy_hp = 40
+player_attack = 10
+enemy_attack = 7
+max_hp = 50
+
+print("Welcome to Final Fantasy!")
+print(f"Your HP: {player_hp}")
+print(f"Enemy HP: {enemy_hp}\n")
+
+# Main Game Loop
+while player_hp > 0 and enemy_hp > 0:
+    print("Your Turn! Choose an action:")
+    print("1. Attack")
+    print("2. Items")
+    print("3. Flee")
+
+    choice = input("> ").strip().lower()  # Strip whitespace and make input lowercase
+
+    if choice == "1":
+        # Player attacks
+        enemy_hp -= player_attack
+        print(f"You attacked the enemy for {player_attack} damage!")
+    elif choice == "2":
+        # Show items menu
+        print("\nChoose an item to use:")
+        print("1.> Potion")
+        print("2.> Hi-Potion")
+        print("3.> Mega Potion")
+        item_choice = input("> ").strip().lower()
+
+        if item_choice == "1":  # Potion
+            heal = 8
+            player_hp = min(player_hp + heal, max_hp)  # Prevent overhealing
+            print(f"You used a Potion and healed for {heal} HP!")
+        elif item_choice == "2":  # Hi-Potion
+            heal = 12
+            player_hp = min(player_hp + heal, max_hp)
+            print(f"You used a Hi-Potion and healed for {heal} HP!")
+        elif item_choice == "3":  # Mega Potion
+            heal = 20
+            player_hp = min(player_hp + heal, max_hp)
+            print(f"You used a Mega Potion and healed for {heal} HP!")
+        else:
+            print("Invalid choice. You lost your turn!")
+    elif choice == "3":
+        # Flee option
+        print("You fled from the battle.")
+        break
+    else:
+        print("Invalid choice. You lost your turn!")
+
+    # Check if the enemy is defeated
+    if enemy_hp <= 0:
+        print("\nYou defeated the enemy!")
+        break
+
+    # Enemy's turn
+    print("\nEnemy's Turn!")
+    player_hp -= enemy_attack
+    print(f"The enemy attacks you for {enemy_attack} damage!")
+
+    # Check if the player is defeated
+    if player_hp <= 0:
+        print("\nYou were defeated... Game Over!")
+        break
+
+    # Display current stats
+    print(f"\nYour HP: {player_hp}")
+    print(f"Enemy HP: {enemy_hp}\n")
